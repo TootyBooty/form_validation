@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+
+  # application service
+  app:
+    container_name: "app"
+    image: app
+    environment:
+      - MONGODB_URL=mongodb://mongodb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: sh entrypoint.sh
+    depends_on:
+      - mongodb
+
+  # database service
+  mongodb:
+      image: mongo
+      container_name: "mongodb"
+      ports:
+        - "27017:27017"
+
